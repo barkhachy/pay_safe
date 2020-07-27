@@ -1,0 +1,31 @@
+<html>
+    <title>login</title>
+    <head>
+        <link rel="stylesheet" href="/static/style.css" type="text/css">
+    </head>
+    <body>
+        <form name = "signup" action="/signup" method="POST" enctype="application/json">
+        <div class="login">
+        <div class="login-screen">
+        <div class="app-title">
+        <h1>Signup</h1>
+        </div>
+        <div class="login-form">
+        <div class="control-group">
+                        <input type="email" class="login-field" value="" placeholder="mail" name="mail" required>  
+        <label class="login-field-icon fui-user" for="mail"></label></div>
+        <div class="control-group">
+            <input type="text" class="login-field" value="" placeholder="name" name="username" required>
+        <label class="login-field-icon fui-user" for="name"></label></div>
+
+        <div class="control-group">
+                        <input type="password" class="login-field" value="" placeholder="password" name="password" required>
+        <label class="login-field-icon fui-lock" for="login-pass"></label></div>
+        <input type="submit" value="Log in" class="btn btn-primary btn-large btn-block">
+        
+        </div>
+        </div>
+        </div>
+        </form>
+    </body>
+</html>

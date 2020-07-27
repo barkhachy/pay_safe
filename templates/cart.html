@@ -1,0 +1,69 @@
+
+    <html>
+    <title>Checkout</title>
+    <head>
+        <link rel="stylesheet" href="/static/style.css" type="text/css">
+       
+    </head>
+    <body>
+        <form name = "Checkout_form" action="/cart" method="POST">
+        <div class="checkout">
+        <div class="checkout-screen">
+        <div class="app-title">
+        <h1>Enter details</h1>
+        </div>
+        <div class="checkout-form">
+        <div class="control-group">
+                <input type="text" class="checkout-field" value="" placeholder="First Name" name="f_name" required>  
+                <label class="login-field-icon fui-user" for="f_name"></label>
+        </div>
+        <div class="control-group">
+                <input type="text" class="checkout-field" value="" placeholder="Last Name" name="l_name" required>
+                <label class="login-field-icon fui-user" for="l_name"></label>
+        </div>
+        <div class="control-group">
+            <input type="mail" class="checkout-field" value="" placeholder="Email" name="mail" required>  
+            <label class="login-field-icon fui-user" for="f_name"></label>
+        </div>
+        <div class="control-group">
+            <input type="number" class="checkout-field" value="" placeholder="Phone Number" name="phone" required>
+            <label class="login-field-icon fui-user" for="l_name"></label>
+        </div>
+        <div class="control-group">
+            <input type="date" class="checkout-field" value="" placeholder="" name="dob" required>
+            <label class="login-field-icon fui-lock" for="login-pass"></label>
+        </div>
+        <div class="app-title"><label>Address Deatils</label></div>
+        <div class="control-group">
+            <input type="text" class="checkout-field" value="" placeholder="Street" name="street_1" required>  
+            <label class="login-field-icon fui-user" for="f_name"></label>
+        </div>
+        <div class="control-group">
+            <input type="text" class="checkout-field" value="" placeholder="Street 2" name="street_2" required>
+            <label class="login-field-icon fui-user" for="l_name"></label>
+        </div>
+        <div class="control-group">
+            <input type="text" class="checkout-field" value="" placeholder="city" name="city" required>  
+            <label class="login-field-icon fui-user" for="f_name"></label>
+        </div>
+        <div class="control-group">
+            <input type="number" class="checkout-field" value="" placeholder="Zip" name="zip" required>
+            <label class="login-field-icon fui-user" for="l_name"></label>
+        </div>
+        <div class="control-group">
+            <input type="text" class="checkout-field" value="" placeholder="State {For Maharashtra type MH}" name="state" required>
+            <label class="login-field-icon fui-user" for="l_name"></label>
+        </div>
+        <div class="control-group">
+            <input type="text" class="checkout-field" value="" placeholder="Country {For India type IN}" name="country" required>
+            <label class="login-field-icon fui-user" for="l_name"></label>
+        </div>
+        <input type="submit" value="Proceed" class="btn btn-primary btn-large btn-block">
+        </div>
+        </div>
+        </div>
+        </form>
+        
+      
+    </body>
+</html>

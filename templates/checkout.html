@@ -1,0 +1,159 @@
+<html>
+    <head>
+        <title>Checkout time</title>
+        <link rel="stylesheet" href="/static/style.css" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <form action="{{ url_for('logout')}}" method="post">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Logout</button>
+        </form>
+        <div id = "demo"></div>
+        <button class="btn btn-primary btn-lg btn-block" onclick="checkout()"> <i class="fa fa-credit-card"></i> Continue to checkout </button>
+        <script src="https://hosted.paysafe.com/checkout/v2/paysafe.checkout.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+    
+        function checkout(){
+                 
+                merchantRefNum = Math.random().toString(36).slice(5);
+                try{
+                        $.ajax({
+                                type: "POST",
+                                url: "http://localhost:5000/tokens",
+                                data: {
+                                    merchantRefNum: merchantRefNum,
+                                    consumerId: "{{customer['customer_id']}}"
+                                    },
+                                dataType: "json",
+                                success: function(response) {
+                                                            id = response['singleUseCustomerToken'];
+                                                            console.log(id)
+                                                            merchant = {
+                                                                    "dynamicDescriptor":"{{data['merchant']['merchantDescriptor']['dynamicDescriptor']}}",
+                                                                    "phone":"{{data['merchant']['merchantDescriptor']['phone']}}"
+                                                            }
+                                                            console.log(merchant)
+                                                            //date = "{{dob['day']}}"
+                                                            //console.log(type(date))
+                                                            dict ={
+                                                            "currency": "{{data['currency']}}",
+                                                            "amount": 5000,
+                                                            "locale": "{{data['locale']}}",
+                                                            "customer":
+                                                            {
+                                                                "firstName":"{{customer['firstName']}}",
+                                                                "lastName":"{{customer['lastName']}}",
+                                                                "email":"{{customer['email']}}",
+                                                                "phone":"{{customer['phone']}}",
+                                                                "dateOfBirth":
+                                                                {
+                                                                    "day": 10,
+                                                                    "month":10,////"{{dob['month']}}",
+                                                                    "year":1980//{{dob['year']}}"
+                                                                },
+                                                            },
+                                                            "billingAddress":{
+                                                                "nickName":"{{add['nickName']}}",
+                                                                "street":"{{add['street']}}",
+                                                                "street2":"{{add['street2']}}",
+                                                                "city":"{{add['city']}}",
+                                                                "zip":"{{add['zip']}}",
+                                                                "country":"{{add['country']}}",
+                                                                "state":"{{add['country']}}"
+                                                            },
+                                                            "environment":"{{data['environment']}}",
+                                                            "merchantRefNum":merchantRefNum,
+                                                            "canEditAmount":false,
+                                                            "merchantDescriptor":merchant,
+                                                            "displayPaymentMethods":["card"],
+                                                            "paymentMethodDetails": {
+                                                                    "paysafecard": {
+                                                                        "consumerId": "1232323"
+                                                                    },
+                                                                }
+                                                            }
+                                                            dict['singleUseCustomerToken']=id
+                                                            paysafe.checkout.setup("{{config}}",dict
+                                                            ,function(instance, error, result) {
+                                                                if (result && result.paymentHandleToken && result.customerOperation == 'ADD') {
+                                                                    try {
+                                                                        //pass customer Id to backend when customer waants to save card
+                                                                            const response = $.ajax({
+                                                                                    type: "POST",
+                                                                                    url: "http://localhost:5000/saved",
+                                                                                    data: {
+                                                                                        customerId: "a0959a5e-ed56-4bc5-a415-a400db5c3a6f",
+                                                                                        merchantRefNum: merchantRefNum,
+                                                                                        paymentHandleToken: result.paymentHandleToken,
+                                                                                        amount: result.amount,
+                                                                                    },
+                                                                                    dataType: "json"
+                                                                                    });
+                                                                            console.log(response)
+                                                                            
+                                                                            instance.showSuccessScreen(`Payment ID: ${obj}`);
+                                                                        } catch (err) {
+                                                                            instance.showFailureScreen("Payment Failed! Please Try Again.");
+                                                                            throw err;
+                                                                        }
+                                                                    // make AJAX call to Payments API
+                                                                } 
+                                                                else if (result && result.paymentHandleToken && result.customerOperation != 'ADD') {
+                                                                    try {
+                                                                        str = "";
+                                                                        //pass customer Id to backend when customer waants to save card
+                                                                            $.ajax({
+                                                                                    type: "POST",
+                                                                                    url: "http://localhost:5000/saved",
+                                                                                    data: {
+                                                                                        merchantRefNum: merchantRefNum,
+                                                                                        paymentHandleToken: result.paymentHandleToken,
+                                                                                        amount: result.amount,
+                                                                                    },
+                                                                                    dataType: "json",
+                                                                                    success: function(response) {
+                                                                                        str = response['id']
+                                                                                        console.log(str)
+                                                                                        console.log(response)
+                                                                                        instance.showSuccessScreen(`Payment ID: ${str}`);
+                                                                                    },
+                                                                                    error: function(err) {
+                                                                                        console.log(err);
+                                                                                    }
+                                                                                    });
+                                                                            console.log(str)
+                                                                            
+                                                                        } catch (err) {
+                                                                            instance.showFailureScreen("Payment Failed! Please Try Again.");
+                                                                            throw err;
+                                                                        }
+                                                                        }else {
+                                                                    console.error(error);
+                                                                    alert(error);
+                                                                    //window.open("/payment_unsucessful/","_self");
+                                                                    // Handle the error
+                                                                }
+                                                            }, function(stage, expired) {
+                                                                switch(stage) {
+                                                                    case "PAYMENT_HANDLE_NOT_CREATED": 
+                                                                    // Handle the scenario
+                                                                    window.open("/payment_handle_not_created/","_self");default: // Handle the scenario
+                                                                }
+                                                            });
+                                                            console.log(response)
+                                                            instance.showSuccessScreen(`Payment ID: ${str}`);
+                                                        },
+                                                        error: function(err) {
+                                                            console.log(err);
+                                                        }
+                                                        });
+                            
+                        }
+                        catch(err)
+                        {
+                            console.log(err)
+                        }
+                        }
+                </script>
+    </body>
+</html>
