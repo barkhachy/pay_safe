@@ -19,7 +19,7 @@
                 try{
                         $.ajax({
                                 type: "POST",
-                                url: "http://localhost:5000/tokens",
+                                url: "https://paysafe-flask.herokuapp.com/tokens",
                                 data: {
                                     merchantRefNum: merchantRefNum,
                                     consumerId: "{{customer['customer_id']}}"

@@ -38,7 +38,7 @@ def home():
     if not session.get('logged_in'):
         return render_template("login.html")
     else:
-        return "Hello Boss!"
+        return render_template("cart.html")
 
 @app.route('/signup', methods = ['GET','POST'])
 def new_user():
@@ -66,7 +66,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         if mail is None or password is None:
-            abort(400)
+            render_template("signup.html")
         if verify_password(mail, password):
             session['user'] = username 
             return redirect(url_for('cart'))
