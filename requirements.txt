@@ -10,7 +10,6 @@ backports.functools-lru-cache==1.6.1
 backports.shutil-get-terminal-size==1.0.0
 backports.ssl-match-hostname==3.7.0.1
 binaryornot==0.4.4
-bleach==3.1.0
 boto3==1.14.17
 botocore==1.17.17
 certifi==2020.6.20
@@ -21,7 +20,6 @@ colorama==0.4.3
 configparser==4.0.2
 contextlib2==0.6.0.post1
 cookiecutter==1.6.0
-cryptography==2.1.4
 cycler==0.10.0
 dateparser==0.7.6
 decorator==4.4.1
@@ -76,14 +74,12 @@ prometheus-client==0.7.1
 prompt-toolkit==1.0.18
 ptyprocess==0.6.0
 pyasn1==0.4.8
-pycrypto==2.6.1
 Pygments==2.4.2
 pygobject==3.26.1
 pyparsing==2.4.5
 pyrsistent==0.16.0
 python-dateutil==2.8.1
 pytz==2020.1
-pyxdg==0.25
 PyYAML==5.3.1
 pyzmq==18.1.1
 qtconsole==4.6.0
