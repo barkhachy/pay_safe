@@ -32,8 +32,6 @@ def before_request():
     g.user = None
     if 'user' in session:
         g.user = session['user']
-    else:
-        return render_template('login.html')
 
 @app.route('/')
 def home():
@@ -45,6 +43,7 @@ def home():
 @app.route('/signup', methods = ['GET','POST'])
 def new_user():
     if request.method == 'POST':
+        print("im there")
         mail = request.form['mail']
         username = request.form['username']
         password = request.form['password']
@@ -59,6 +58,7 @@ def new_user():
         db_session.commit()
         return render_template("login.html")
     else:
+        print("iam here")
         return render_template("signup.html")
 
 @app.route('/login',methods = ['GET','POST'])
