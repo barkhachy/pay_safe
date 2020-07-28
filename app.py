@@ -73,6 +73,7 @@ def login():
             session['user'] = username 
             return redirect(url_for('cart'))
     else:
+        session.pop('user', None)
         return render_template("login.html")
 
 @app.route('/logout', methods = ['GET','POST'])
