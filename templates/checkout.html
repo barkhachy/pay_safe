@@ -80,7 +80,7 @@
                                                                         //pass customer Id to backend when customer waants to save card
                                                                             const response = $.ajax({
                                                                                     type: "POST",
-                                                                                    url: "http://localhost:5000/saved",
+                                                                                    url: "https://paysafe-flask.herokuapp.com/saved",
                                                                                     data: {
                                                                                         customerId: "a0959a5e-ed56-4bc5-a415-a400db5c3a6f",
                                                                                         merchantRefNum: merchantRefNum,
@@ -104,7 +104,7 @@
                                                                         //pass customer Id to backend when customer waants to save card
                                                                             $.ajax({
                                                                                     type: "POST",
-                                                                                    url: "http://localhost:5000/saved",
+                                                                                    url: "https://paysafe-flask.herokuapp.com//saved",
                                                                                     data: {
                                                                                         merchantRefNum: merchantRefNum,
                                                                                         paymentHandleToken: result.paymentHandleToken,

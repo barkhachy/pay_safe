@@ -32,13 +32,15 @@ def before_request():
     g.user = None
     if 'user' in session:
         g.user = session['user']
+    else:
+        return render_template('login.html')
 
 @app.route('/')
 def home():
-    if not session.get('logged_in'):
-        return render_template("login.html")
-    else:
+    if g.user:
         return render_template("cart.html")
+    else:
+        return render_template('login.html')
 
 @app.route('/signup', methods = ['GET','POST'])
 def new_user():
